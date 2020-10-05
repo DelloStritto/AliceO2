@@ -202,7 +202,7 @@ struct HFTrackIndexSkimsCreator {
         auto arrMom = array{pvec0, pvec1};
         mass2PiK = RecoDecay::M(arrMom, array{massPi, massK});
         mass2KPi = RecoDecay::M(arrMom, array{massK, massPi});
-        ptcand_2prong = RecoDecay::Pt(pvec0,pvec1);
+        ptcand_2prong = RecoDecay::Pt(pvec0, pvec1);
 
         if (ptcand_2prong < ptmincand_2prong)
           continue;
