@@ -204,7 +204,7 @@ struct HFTrackIndexSkimsCreator {
         mass2KPi = RecoDecay::M(arrMom, array{massK, massPi});
         ptcand_2prong = RecoDecay::Pt(pvec0, pvec1);
 
-        if (ptcand_2prong >= ptmincand_2prong){
+        if (ptcand_2prong >= ptmincand_2prong) {
           if (b_dovalplots) {
             hmass2->Fill(mass2PiK);
             hmass2->Fill(mass2KPi);
