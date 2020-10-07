@@ -110,8 +110,8 @@ struct HFTrackIndexSkimsCreator {
   Configurable<double> d_minmassDp{"d_minmassDp", 1.5, "min mass dplus presel"};
   Configurable<double> d_maxmassDp{"d_maxmassDp", 2.1, "max mass dplus presel"};
   Configurable<bool> b_dovalplots{"b_dovalplots", true, "do validation plots"};
-  Configurable<double> ptmincand_2prong{"ptmincand_2prong", -1, "ptmin 2prong candidate"};
-  Configurable<double> ptmincand_3prong{"ptmincand_3prong", -1, "ptmin 3prong candidate"};
+  Configurable<double> ptmincand_2prong{"ptmincand_2prong", -1., "ptmin 2prong candidate"};
+  Configurable<double> ptmincand_3prong{"ptmincand_3prong", -1., "ptmin 3prong candidate"};
 
   OutputObj<TH1F> hvtx_x_out{TH1F("hvtx_x", "2-track vtx", 1000, -2.0, 2.0)};
   OutputObj<TH1F> hvtx_y_out{TH1F("hvtx_y", "2-track vtx", 1000, -2.0, 2.0)};
@@ -204,21 +204,19 @@ struct HFTrackIndexSkimsCreator {
         mass2KPi = RecoDecay::M(arrMom, array{massK, massPi});
         ptcand_2prong = RecoDecay::Pt(pvec0, pvec1);
 
-        if (ptcand_2prong < ptmincand_2prong)
-          continue;
-        if (b_dovalplots) {
-          hmass2->Fill(mass2PiK);
-          hmass2->Fill(mass2KPi);
-          hvtx_x_out->Fill(secondaryVertex[0]);
-          hvtx_y_out->Fill(secondaryVertex[1]);
-          hvtx_z_out->Fill(secondaryVertex[2]);
+        if (ptcand_2prong >= ptmincand_2prong){
+          if (b_dovalplots) {
+            hmass2->Fill(mass2PiK);
+            hmass2->Fill(mass2KPi);
+            hvtx_x_out->Fill(secondaryVertex[0]);
+            hvtx_y_out->Fill(secondaryVertex[1]);
+            hvtx_z_out->Fill(secondaryVertex[2]);
+          }
+          // fill table row
+          rowTrackIndexProng2(trackPos1.collisionId(),
+                              trackPos1.globalIndex(),
+                              trackNeg1.globalIndex(), 1);
         }
-
-        // fill table row
-        rowTrackIndexProng2(trackPos1.collisionId(),
-                            trackPos1.globalIndex(),
-                            trackNeg1.globalIndex(), 1);
-
         // 3-prong vertex reconstruction
         if (do3prong == 1) {
           if (trackPos1.isSel3Prong() == 0)
