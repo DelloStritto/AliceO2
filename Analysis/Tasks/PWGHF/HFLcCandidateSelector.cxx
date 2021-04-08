@@ -86,9 +86,9 @@ struct HFLcCandidateSelector {
       return false; //cosine of pointing angle
     }
 
-    /*  if (hfCandProng3.chi2PCA() > cuts[pTBin][5]) { //candidate DCA
+    if (hfCandProng3.chi2PCA() > cuts->get(pTBin, "DCA")) { //candidate DCA
       return false;
-      }*/
+    }
 
     if (hfCandProng3.decayLength() <= cuts->get(pTBin, "decay length")) {
       return false;
