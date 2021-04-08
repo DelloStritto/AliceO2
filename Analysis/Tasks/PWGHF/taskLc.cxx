@@ -153,7 +153,7 @@ struct TaskLcMC {
         auto particleMother = particlesMC.iteratorAt(indexMother);
         registry.fill(HIST("hPtGenSig"), particleMother.pt()); //gen. level pT
         auto ptRec = candidate.pt();
-        registry.fill(HIST("hPtRecSig"), ptRec);      //rec. level pT
+        registry.fill(HIST("hPtRecSig"), ptRec); //rec. level pT
         if (candidate.originMCRec() == Prompt) {
           registry.fill(HIST("hPtRecSigPrompt"), ptRec); // rec. level pT, prompt
         } else {
